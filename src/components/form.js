@@ -6,36 +6,98 @@ const UserForm = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [firstNameError, setFirstNameError] = useState('');
+    const [lastNameError, setLastNameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
 
 
     const createUser = (e) => {
         e.preventDefault();
-        if (confirmPassword !== password) alert('Passwords must match');
         const newUser = { firstName, lastName, email, password };
         console.log(newUser);
     }
+
+    const handleFirstName = (e) => {
+        setFirstName(e.target.value);
+        if (e.target.value.length < 2) {
+            setFirstNameError('First name must be grater than 2 characters');
+        }
+    }
+
+
+    const handleLastName = (e) => {
+        setLastName(e.target.value);
+        if (e.target.value.length < 2) {
+            setLastNameError('Last name must be grater than 2 characters');
+        }
+    }
+
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+        if (e.target.value.length < 2) {
+            setEmailError('Email must be grater than 2 characters');
+        }
+    }
+
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+        if (confirmPassword !== password) {
+            setPasswordError('Passwords must match');
+        }
+        else if (e.target.value.length < 8) {
+            setPasswordError('Password must be 8 characters');
+    }
+}
+
 
     return (
         <>
 
             <div>
                 <label>First Name:</label>
-                <input type='text' onChange={(e) => setFirstName(e.target.value)} />
+                <input type='text' onChange={ handleFirstName } />
+                {
+                    firstNameError ?
+                    <p style={{color:'red'}}>{ firstNameError }</p> :
+                    ''
+                }
+            
             </div>
 
             <div>
                 <label>Last Name:</label>
-                <input type='text' onChange={(e) => setLastName(e.target.value)} />
+                <input type='text' onChange={ handleLastName } />
+                {
+                    lastNameError ?
+                    <p style={{color:'red'}}>{ lastNameError }</p> :
+                    ''
+                }
             </div>
 
             <div>
                 <label>Email:</label>
-                <input type='text' onChange={(e) => setEmail(e.target.value)} />
+                <input type='text' onChange={ handleEmail } />
+
+                {
+                    emailError ?
+                    <p style={{color:'red'}}>{ emailError }</p> :
+                    ''
+                }
             </div>
 
             <div>
                 <label>Password:</label>
-                <input type='text' onChange={(e) => setPassword(e.target.value)} />
+                <input type='text' onChange={ handlePassword } />
+
+                {
+                    passwordError ?
+                    <p style={{color:'red'}}>{ passwordError }</p> :
+                    ''
+                }
+
             </div>
 
             <div>
